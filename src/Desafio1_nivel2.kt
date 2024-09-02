@@ -82,64 +82,150 @@ class Livro_(){
     }
 
 }
-fun main(){
-    val olivro : Livro_ = Livro_()
-    var nome:String
-    var genero:String
-    var autor:String
-    var totaldepaginas:Int
+fun main() {
+    var livros: ArrayList<Livro_> = ArrayList()
+    var opcao: Int = 0
+
+    while (opcao != 3) {
+        println("Menu de opcoes")
+        println("1-Cadastrar")
+        println("2-Consultar")
+        println("3-Sair")
+        println("Informe a opcao desejada: ")
+        opcao = readlnOrNull()?.toInt() ?: 0
+
+        if (opcao == 1) {
+            livros.add(cadastrar())
+            //println("Total livros ${livros.size}")
+        }else if(opcao == 2){
+           consultar(livros)
+        }
+    }
+}
+fun cadastrar():Livro_ {
+    var olivro: Livro_ = Livro_()
+    var nome: String
+    var genero: String
+    var autor: String
+    var totaldepaginas: Int
     var paginaslidas: Int
 
-    while(true) {
-       println("Informe o nome do livro: ")
-       nome = readln()
-       if (olivro.setnome(nome)){
-           break
-       }else{
-           println("O ${nome} informado é invalido")
-       }
+    while (true) {
+        println("Informe o nome do livro: ")
+        nome = readln()
+        if (olivro.setnome(nome)) {
+            break
+        } else {
+            println("O ${nome} informado é invalido")
+        }
     }
 
-    while(true) {
+    while (true) {
         println("Informe o genero do livro: ")
         genero = readln()
-        if (olivro.setgenero(genero)){
+        if (olivro.setgenero(genero)) {
             break
-        }else{
+        } else {
             println("O ${genero} informado é invalido")
         }
     }
 
-    while(true) {
+    while (true) {
         println("Informe o autor do livro: ")
         autor = readln()
-        if (olivro.setautor(autor)){
+        if (olivro.setautor(autor)) {
             break
-        }else{
+        } else {
             println("O ${autor} informado é invalido")
         }
     }
 
-    while(true){
+    while (true) {
         println("Informe o total de paginas do livro: ")
-        totaldepaginas = readlnOrNull()?.toInt()?:0
-        if (olivro.settotaldepaginas(totaldepaginas)){
+        totaldepaginas = readlnOrNull()?.toInt() ?: 0
+        if (olivro.settotaldepaginas(totaldepaginas)) {
             break
         }
     }
 
-    while(true){
+    while (true) {
         println("Informe a quantidade de paginas lidas do livro: ")
-        paginaslidas = readlnOrNull()?.toInt()?:0
-        if ( olivro.setpaginaslidas(paginaslidas)){
+        paginaslidas = readlnOrNull()?.toInt() ?: 0
+        if (olivro.setpaginaslidas(paginaslidas)) {
             break
         }
     }
-    println("O nome do livro é ${olivro.nome}")
-    println("O total de paginas do livro ${olivro.totaldepaginas}")
-    println("O numero de paginas lidas ${olivro.paginaslidas}")
-    println("O genero do livro é ${olivro.genero}")
-    println("A classificacao do livro é ${olivro.classificacao}")
-    println("A progressao de leitura é ${olivro.progressaoleitura()}%")
-
+    return olivro
 }
+
+fun consultar(livros : ArrayList<Livro_>){
+    var tipoConsulta:Int = 0
+    var consulta:String
+    var olivro:Livro_ = Livro_()
+
+
+    println("Total livros ${livros.size}")
+
+    while (tipoConsulta != 4) {
+        var _livros: ArrayList<Livro_> = ArrayList()
+        println("Escolha o tipo de consulta")
+        println("1-Nome")
+        println("2-Genero")
+        println("3-Autor")
+        println("4-Menu principal")
+        println("Informe a opcao desejada: ")
+        tipoConsulta = readlnOrNull()?.toInt() ?: 0
+
+
+        if(tipoConsulta == 1){
+
+            println("Informe o nome do livro: ")
+            consulta = readln()
+
+            for(pos in 0.. livros.size-1){
+
+                if(livros[pos].nome.lowercase() == consulta.lowercase() ) {
+                    _livros.add(livros[pos])
+                }
+            }
+        }
+
+        if(tipoConsulta == 2){
+
+            println("Informe o Genero do livro: ")
+            consulta = readln()
+
+            for(pos in 0.. livros.size-1){
+
+                if(livros[pos].genero.lowercase() == consulta.lowercase() ) {
+                    _livros.add(livros[pos])
+                }
+            }
+        }
+        if(tipoConsulta == 3){
+
+            println("Informe o Autor do livro: ")
+            consulta = readln()
+
+            for(pos in 0.. livros.size-1){
+
+                if(livros[pos].autor.lowercase() == consulta.lowercase() ) {
+                    _livros.add(livros[pos])
+                }
+            }
+        }
+
+        for(pos in 0.. _livros.size-1){
+            olivro = _livros[pos]
+            println("O nome do livro é ${olivro.nome}")
+            println("O total de paginas do livro ${olivro.totaldepaginas}")
+            println("O numero de paginas lidas ${olivro.paginaslidas}")
+            println("O genero do livro é ${olivro.genero}")
+            println("A classificacao do livro é ${olivro.classificacao}")
+            println("A progressao de leitura é ${olivro.progressaoleitura()}%")
+            println("-------------")
+        }
+
+     }
+}
+
